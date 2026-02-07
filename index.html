@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St Valentin ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fce4ec;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .container {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 85%;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #1c1e21;
+            margin-bottom: 50px;
+            line-height: 1.4;
+        }
+        .btn-container {
+            position: relative;
+            height: 250px;
+        }
+        button {
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            touch-action: manipulation;
+        }
+        #btn-oui {
+            background: linear-gradient(45deg, #ff007f, #ff8c00);
+            color: white;
+            width: 80%;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        #btn-non {
+            background: #f8f9fa;
+            color: #ff4757;
+            border: 2px solid #ff4757;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            min-width: 100px;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #ad1457;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-card">
+        <h2 id="title">Veux-tu connaître ta valentine ou ton valentin ? ❤️</h2>
+        
+        <div class="btn-container" id="area">
+            <button id="btn-oui" onclick="valider()">OUI</button>
+            <button id="btn-non" onmouseover="deplacer()" onclick="deplacer()">NON</button>
+        </div>
+    </div>
+
+    <footer>Made by momo0345</footer>
+
+    <script>
+        const btnNon = document.getElementById('btn-non');
+        const mainCard = document.getElementById('main-card');
+
+        function deplacer() {
+            // Le bouton bouge indéfiniment maintenant
+            const container = document.getElementById('area');
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            
+            // On calcule une position aléatoire pour qu'il reste dans le cadre blanc
+            const newX = Math.random() * (containerWidth - 100);
+            const newY = Math.random() * (containerHeight - 50);
+            
+            btnNon.style.left = newX + 'px';
+            btnNon.style.top = newY + 'px';
+            btnNon.style.transform = 'none'; 
+        }
+
+        function valider() {
+            mainCard.style.justifyContent = "center";
+            mainCard.innerHTML = `
+                <h2 style="color: #ff007f; font-size: 1.6rem;">
+                    Zôgô là faut pas aller étudier hein, faut rester là ! 😂🤣
+                </h2>
+                <p style="font-size: 40px;">👀</p>
+            `;
+        }
+    </script>
+</body>
+</html>
