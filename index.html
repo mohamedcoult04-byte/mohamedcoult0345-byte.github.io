@@ -3,125 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>St Valentin ❤️</title>
+    <title>Calcul d'Argent</title>
     <style>
+        /* Design inspiré de NGL avec fond bleu */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fce4ec;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            flex-direction: column;
-        }
-        .container {
-            background: white;
-            padding: 40px 20px;
-            border-radius: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 85%;
-            max-width: 350px;
-            text-align: center;
-            position: relative;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            z-index: 1;
-        }
-        h2 {
-            font-size: 1.4rem;
-            color: #1c1e21;
-            margin-bottom: 50px;
-            line-height: 1.4;
-        }
-        .btn-container {
-            position: relative;
-            height: 250px;
-        }
-        button {
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: none;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.1s ease;
-            touch-action: manipulation;
-        }
-        #btn-oui {
-            background: linear-gradient(45deg, #ff007f, #ff8c00);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            /* Dégradé bleu style NGL */
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             color: white;
-            width: 80%;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
         }
-        #btn-non {
-            background: #f8f9fa;
-            color: #ff4757;
-            border: 2px solid #ff4757;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            min-width: 100px;
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
         }
-        footer {
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #ad1457;
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1e3a8a;
+            font-size: 1.2rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+        }
+
+        button {
+            background-color: #000; /* Bouton noir comme sur NGL */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
             font-weight: bold;
-            opacity: 0.7;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: transform 0.2s;
         }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #result {
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-height: 1.5em;
+            padding: 15px;
+            border-radius: 15px;
+            display: none; /* Caché par défaut */
+        }
+
+        .yako { color: #f59e0b; background: #fef3c7; }
+        .late { color: #10b981; background: #d1fae5; }
+        .gate { color: #ef4444; background: #fee2e2; }
+
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-card">
-        <h2 id="title">Veux-tu connaître ta valentine ou ton valentin ? ❤️</h2>
+<div class="container">
+    <div class="card">
+        <h2>Entrer l'argent du mois :</h2>
+        <input type="number" id="argent" placeholder="Montant en FCFA..." autofocus>
+        <button onclick="verifierArgent()">Envoyer</button>
         
-        <div class="btn-container" id="area">
-            <button id="btn-oui" onclick="valider()">OUI</button>
-            <button id="btn-non" onmouseover="deplacer()" onclick="deplacer()">NON</button>
-        </div>
+        <div id="result"></div>
     </div>
+</div>
 
-    <footer>Made by momo0345</footer>
+<script>
+    function verifierArgent() {
+        const input = document.getElementById('argent');
+        const resultDiv = document.getElementById('result');
+        const x = parseInt(input.value);
 
-    <script>
-        const btnNon = document.getElementById('btn-non');
-        const mainCard = document.getElementById('main-card');
-
-        function deplacer() {
-            // Le bouton bouge indéfiniment maintenant
-            const container = document.getElementById('area');
-            const containerWidth = container.clientWidth;
-            const containerHeight = container.clientHeight;
-            
-            // On calcule une position aléatoire pour qu'il reste dans le cadre blanc
-            const newX = Math.random() * (containerWidth - 100);
-            const newY = Math.random() * (containerHeight - 50);
-            
-            btnNon.style.left = newX + 'px';
-            btnNon.style.top = newY + 'px';
-            btnNon.style.transform = 'none'; 
+        if (isNaN(x)) {
+            resultDiv.style.display = "block";
+            resultDiv.className = "gate";
+            resultDiv.innerText = "Mets un chiffre valide !";
+            return;
         }
 
-        function valider() {
-            mainCard.style.justifyContent = "center";
-            mainCard.innerHTML = `
-                <h2 style="color: #ff007f; font-size: 1.6rem;">
-                    Zôgô là faut pas aller étudier hein, faut rester là ! 😂🤣
-                </h2>
-                <p style="font-size: 40px;">👀</p>
-            `;
+        resultDiv.style.display = "block";
+
+        // Logique calquée sur ton code Python
+        if (x >= 1000 && x <= 10000) {
+            resultDiv.className = "yako";
+            resultDiv.innerText = "yako";
+        } else if (x > 10000) {
+            resultDiv.className = "late";
+            resultDiv.innerText = "tu es un laté mon fils";
+        } else {
+            resultDiv.className = "gate";
+            resultDiv.innerText = "c'est gaté hein";
         }
-    </script>
+    }
+
+    // Permet de valider avec la touche "Entrée"
+    document.getElementById('argent').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            verifierArgent();
+        }
+    });
+</script>
+
 </body>
 </html>
